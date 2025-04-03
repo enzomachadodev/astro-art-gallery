@@ -26,8 +26,8 @@ const itemMotionDesktop = {
 
 const navLinks = [
   { name: "Home", href: "/", id: 1 },
-  { name: "Blog", href: "/blog", id: 2 },
-  { name: "Contact", href: "/contact", id: 3 },
+  { name: "Blog", href: "/", id: 2 },
+  { name: "Contact", href: "/", id: 3 },
 ];
 
 const NavLinks = ({
@@ -106,16 +106,16 @@ export const Nav = () => {
         initial={{ opacity: 0, x: 25 }}
         transition={{ delay: 0.35 }}
         onClick={() => setIsOpen(!isOpen)}
-        className={`burger z-50 cursor-pointer space-y-1.5 xl:hidden`}
+        className="z-50 cursor-pointer space-y-1.5 xl:hidden"
       >
         <motion.span
           animate={{ rotateZ: isOpen ? 45 : 0, y: isOpen ? 8 : 0 }}
-          className="line-1 bg-content block h-0.5 w-8"
+          className="bg-foreground block h-0.5 w-8"
         ></motion.span>
 
         <motion.span
-          animate={{ width: isOpen ? 0 : 24 }}
-          className="line-2 bg-content block h-0.5 w-6"
+          animate={{ width: isOpen ? 0 : 16 }}
+          className="bg-foreground block h-0.5 w-4"
         ></motion.span>
         <motion.span
           animate={{
@@ -123,7 +123,7 @@ export const Nav = () => {
             y: isOpen ? -8 : 0,
             width: isOpen ? 32 : 24,
           }}
-          className="line-3 bg-content block h-0.5 w-4"
+          className="bg-foreground block h-0.5 w-6"
         ></motion.span>
       </motion.div>
 
@@ -132,7 +132,7 @@ export const Nav = () => {
         <motion.div
           animate={{ opacity: 1, x: 0 }}
           initial={{ opacity: 0, x: 25 }}
-          className="bg-background fixed bottom-0 left-0 flex h-screen w-full items-center justify-center md:hidden"
+          className="bg-background fixed bottom-0 left-0 z-40 flex h-screen w-full items-center justify-center md:hidden"
         >
           <motion.div
             variants={navMotion}
@@ -143,10 +143,10 @@ export const Nav = () => {
             <motion.a variants={itemMotion} href="/">
               Home
             </motion.a>
-            <motion.a variants={itemMotion} href="/blog">
+            <motion.a variants={itemMotion} href="/">
               Blog
             </motion.a>
-            <motion.a variants={itemMotion} href="/contact">
+            <motion.a variants={itemMotion} href="/">
               Contact
             </motion.a>
           </motion.div>
