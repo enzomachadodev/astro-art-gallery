@@ -1,0 +1,33 @@
+---
+import "@/styles/global.css";
+import { Nav } from "@/components/nav";
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta
+			name="viewport"
+			content="width=device-width"
+		/>
+		<link
+			rel="icon"
+			type="image/svg+xml"
+			href="/favicon.svg"
+		/>
+		<meta
+			name="description"
+			content="Digital Artist services, accessible for everyone."
+		/>
+		<meta
+			name="generator"
+			content={Astro.generator}
+		/>
+		<title>Astro Basics</title>
+	</head>
+	<body>
+		<Nav client:load />
+		<slot />
+	</body>
+</html>
