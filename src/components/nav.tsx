@@ -15,15 +15,41 @@ const navMotion = {
 };
 
 const itemMotion = {
-  visible: {
-    opacity: 1,
-    x: 0,
-  },
-  hidden: {
-    opacity: 0,
-    x: -100,
-  },
+  visible: { opacity: 1, x: 0 },
+  hidden: { opacity: 0, x: -100 },
 };
+
+const itemMotionDesktop = {
+  visible: { opacity: 1, x: 0 },
+  hidden: { opacity: 1, x: 0 },
+};
+
+const navLinks = [
+  { name: "Home", href: "/", id: 1 },
+  { name: "Blog", href: "/blog", id: 2 },
+  { name: "Contact", href: "/contact", id: 3 },
+];
+
+const NavLinks = ({
+  isMobile,
+  className,
+}: {
+  isMobile: boolean;
+  className: string;
+}) => (
+  <div className={className}>
+    {navLinks.map(({ name, href, id }) => (
+      <motion.a
+        key={id}
+        variants={isMobile ? itemMotion : itemMotionDesktop}
+        href={href}
+        className="text-xl font-bold"
+      >
+        {name}
+      </motion.a>
+    ))}
+  </div>
+);
 
 export const Nav = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -45,37 +71,51 @@ export const Nav = () => {
           strokeLinecap="round"
         />
       </svg>
-      <div className="size-12 overflow-hidden rounded-full">
-        <img
-          src="/avatar.png"
-          alt="Profile picture of Hua"
-          className="size-full rounded-full object-cover object-center"
-        />
-      </div>
 
+      <motion.div
+        animate={{ opacity: 1, x: 0 }}
+        initial={{ opacity: 0, x: -25 }}
+        transition={{ delay: 0.35 }}
+        className="flex gap-12"
+      >
+        <img src="/avatar.png" alt="Hua profile picture" />
+        <motion.div className="hidden items-center gap-12 xl:flex">
+          <img src="/dribble.png" alt="Dribble Account" />
+          <img src="/twitter.png" alt="Twitter Account" />
+          <img src="/youtube.png" alt="Youtube Channel" />
+        </motion.div>
+      </motion.div>
+
+      {/* Title */}
       <h1 className="text-lg font-bold">
         <a href="/">Hua.</a>
       </h1>
 
-      <div className="hidden items-center gap-12 md:flex">
-        <a href="/">Home</a>
-        <a href="/services">Services </a>
-        <a href="/contact">Contact</a>
-      </div>
+      <motion.div
+        animate={{ opacity: 1, x: 0 }}
+        initial={{ opacity: 0, x: 25 }}
+        transition={{ delay: 0.35 }}
+        className="hidden xl:flex xl:items-center xl:justify-center xl:gap-12 xl:text-lg"
+      >
+        <NavLinks className="flex gap-12" isMobile={false} />
+      </motion.div>
 
-      <div
+      {/* Hamburger Toggle */}
+      <motion.div
+        animate={{ opacity: 1, x: 0 }}
+        initial={{ opacity: 0, x: 25 }}
+        transition={{ delay: 0.35 }}
         onClick={() => setIsOpen(!isOpen)}
-        className="z-50 cursor-pointer space-y-1.5 md:hidden"
+        className={`burger z-50 cursor-pointer space-y-1.5 xl:hidden`}
       >
         <motion.span
           animate={{ rotateZ: isOpen ? 45 : 0, y: isOpen ? 8 : 0 }}
-          className="bg-foreground block h-0.5 w-8"
+          className="line-1 bg-content block h-0.5 w-8"
         ></motion.span>
+
         <motion.span
-          animate={{
-            width: isOpen ? 0 : 16,
-          }}
-          className="bg-foreground block h-0.5 w-4"
+          animate={{ width: isOpen ? 0 : 24 }}
+          className="line-2 bg-content block h-0.5 w-6"
         ></motion.span>
         <motion.span
           animate={{
@@ -83,10 +123,11 @@ export const Nav = () => {
             y: isOpen ? -8 : 0,
             width: isOpen ? 32 : 24,
           }}
-          className="bg-foreground block h-0.5 w-6"
+          className="line-3 bg-content block h-0.5 w-4"
         ></motion.span>
-      </div>
+      </motion.div>
 
+      {/* Nav Items animating in  */}
       {isOpen && (
         <motion.div
           animate={{ opacity: 1, x: 0 }}
@@ -102,8 +143,8 @@ export const Nav = () => {
             <motion.a variants={itemMotion} href="/">
               Home
             </motion.a>
-            <motion.a variants={itemMotion} href="/services">
-              Services{" "}
+            <motion.a variants={itemMotion} href="/blog">
+              Blog
             </motion.a>
             <motion.a variants={itemMotion} href="/contact">
               Contact
